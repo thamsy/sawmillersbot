@@ -5,6 +5,7 @@ A Telegram bot to inform the house of the duties they have.
 ## Setup
 
 ```bash
+# After installing Go and setting up the GOPATH and GOROOT env variables
 go get -u gopkg.in/telegram-bot-api.v4
 go get -u google.golang.org/api/sheets/v4
 go get -u golang.org/x/oauth2/...
