@@ -40,7 +40,7 @@ func main() {
 		if command == "dinnerduty" {
 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetDinnerDuty(time.Now().Weekday()))
 		} else if command == "dinnerdutytmr" {
-			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetDinnerDutyTmr(time.Now().Weekday()))
+			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetDinnerDuty(time.Now().Add(time.Hour * 24).Weekday()))
 		} else if command == "trashduty" {
 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetTrashDuty())
 		} else if command == "cleaningduty" {

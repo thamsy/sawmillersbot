@@ -3,8 +3,8 @@ package sheetsapi
 import (
 	"fmt"
 	"log"
-	"time"
 	"saw_millers_bot/secret"
+	"time"
 )
 
 var (
@@ -36,10 +36,6 @@ func GetDinnerDuty(weekday time.Weekday) string {
 	}
 
 	return res
-}
-
-func GetDinnerDutyTmr(weekday time.Weekday) string {
-	return GetDinnerDuty((weekday + 1) % 7)
 }
 
 func GetTrashDuty() string {
