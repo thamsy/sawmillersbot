@@ -50,6 +50,8 @@ func main() {
 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetNextCleaningDate())
 		} else if command == "help" {
 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetHelp())
+		} else if command == "flipcoin" {
+			msg = tgbotapi.NewMessage(update.Message.Chat.ID, otherfunctions.GetFlippedCoin())
 		}
 
 		msg.ReplyToMessageID = update.Message.MessageID
