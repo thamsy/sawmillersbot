@@ -5,8 +5,8 @@ import (
 	"sawmillersbot/sheetsapi"
 	"time"
 
-	"sawmillersbot/secret"
 	"sawmillersbot/otherfunctions"
+	"sawmillersbot/secret"
 
 	"gopkg.in/telegram-bot-api.v4"
 )
@@ -41,7 +41,7 @@ func main() {
 		if command == "dinnerduty" {
 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetDinnerDuty(time.Now().Weekday()))
 		} else if command == "dinnerdutytmr" {
-			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetDinnerDuty(time.Now().Add(time.Hour * 24).Weekday()))
+			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetDinnerDuty(time.Now().Add(time.Hour*24).Weekday()))
 		} else if command == "trashduty" {
 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetTrashDuty())
 		} else if command == "cleaningduty" {
@@ -49,7 +49,7 @@ func main() {
 		} else if command == "nextcleaningdate" {
 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetNextCleaningDate())
 		} else if command == "help" {
-			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetHelp())
+			msg = tgbotapi.NewMessage(update.Message.Chat.ID, otherfunctions.GetHelp())
 		} else if command == "flipcoin" {
 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, otherfunctions.GetFlippedCoin())
 		}

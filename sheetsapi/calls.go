@@ -91,11 +91,3 @@ func GetNextCleaningDate() string {
 	}
 	return res
 }
-
-func GetHelp() string {
-	return `/dinnerduty - Who's on Dinner Duty today?
-	/dinnerdutytmr - Who's on Dinner Duty tomorrow?
-	/trashduty - Who's supposed to take out the trash this week?
-	/cleaningduty - Who's on what cleaning duty?
-	/nextcleaningdate - When's the next date for cleaning the house?`
-}
