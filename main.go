@@ -2,10 +2,11 @@ package main
 
 import (
 	"log"
-	"saw_millers_bot/sheetsapi"
+	"sawmillersbot/sheetsapi"
 	"time"
 
-	"saw_millers_bot/secret"
+	"sawmillersbot/secret"
+	"sawmillersbot/otherfunctions"
 
 	"gopkg.in/telegram-bot-api.v4"
 )

@@ -3,7 +3,7 @@ package sheetsapi
 import (
 	"fmt"
 	"log"
-	"saw_millers_bot/secret"
+	"sawmillersbot/secret"
 	"time"
 )
 
