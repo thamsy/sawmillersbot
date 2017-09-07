@@ -116,5 +116,6 @@ func GetHelp() string {
 	/trashduty - Who's supposed to take out the trash this week?
 	/cleaningduty - Who's on what cleaning duty?
 	/nextcleaningdate - When's the next date for cleaning the house?
+	/flipcoin - 50% chance heads, 50% tails, or is it?
 	/qotd - Get quote of the day.`
 }
