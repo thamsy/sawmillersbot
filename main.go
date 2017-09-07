@@ -52,6 +52,8 @@ func main() {
 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, otherfunctions.GetHelp())
 		} else if command == "flipcoin" {
 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, otherfunctions.GetFlippedCoin())
+		} else if command == "qotd" {
+			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetQuoteOfTheDay())
 		}
 
 		msg.ReplyToMessageID = update.Message.MessageID
