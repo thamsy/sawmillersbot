@@ -4,7 +4,8 @@ import (
 	"log"
 	"saw_millers_bot/sheetsapi"
 	"time"
-
+	"math/rand"
+	
 	"saw_millers_bot/secret"
 
 	"gopkg.in/telegram-bot-api.v4"
@@ -49,6 +50,15 @@ func main() {
 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetNextCleaningDate())
 		} else if command == "help" {
 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetHelp())
+		} else if command == "flipcoin" {
+ 			var coin int = Intn(1) // 1 is heads, 0 is tails
+ 			var pmsg string
+ 			if coin {
+ 				pmsg = "Heads"
+ 			} else {
+ 				pmsg = "Tails"
+ 			}
+ 			msg = tgbotapi.NewMessage(update.Message.Chat.ID, pmsg)
 		}
 
 		msg.ReplyToMessageID = update.Message.MessageID
