@@ -92,10 +92,29 @@ func GetNextCleaningDate() string {
 	return res
 }
 
+func GetQuoteOfTheDay() string {
+	var res string
+	readRange := "Quotes!A1:B1" // sheet and range
+	resp, err := srv.Spreadsheets.Values.Get(secret.SpreadsheetId, readRange).Do()
+	if err != nil {
+		log.Fatalf("Unable to retrieve data from sheet. %v", err)
+	}
+
+	if len(resp.Values) > 0 {
+		for _, row := range resp.Values {
+			res += "Quote of the Day:\n\n" + fmt.Sprintf("\"%s\" (%s, 2017)\n", row[0], row[1])
+		}
+	} else {
+		fmt.Print("No data found.")
+	}
+	return res
+}
+
 func GetHelp() string {
 	return `/dinnerduty - Who's on Dinner Duty today?
 	/dinnerdutytmr - Who's on Dinner Duty tomorrow?
 	/trashduty - Who's supposed to take out the trash this week?
 	/cleaningduty - Who's on what cleaning duty?
-	/nextcleaningdate - When's the next date for cleaning the house?`
+	/nextcleaningdate - When's the next date for cleaning the house?
+	/qotd - Get quote of the day.`
 }
