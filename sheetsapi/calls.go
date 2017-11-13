@@ -176,8 +176,12 @@ func WriteWinDoubleStatus(data string) {
 	writeBridgeScoring(data, "F")
 }
 
-func WriteVul(data string) {
+func WriteOverUnder(data string) {
 	writeBridgeScoring(data, "G")
+}
+
+func WriteVul(data string) {
+	writeBridgeScoring(data, "H")
 }
 
 func writeBridgeScoring(data string, col string) {

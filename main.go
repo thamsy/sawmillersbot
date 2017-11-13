@@ -120,6 +120,15 @@ func main() {
 						var editmsg tgbotapi.EditMessageTextConfig
 						editmsg.ChatID = callbackQuery.Message.Chat.ID
 						editmsg.MessageID = callbackQuery.Message.MessageID
+						editmsg.Text = "How many Over or Under?"
+						editmsg.ReplyMarkup = contbridg.ChooseOverUnder()
+						bot.Send(editmsg)
+						continue
+					} else if strings.HasPrefix(data, contbridg.ChooseOverUnderPrefix) {
+						go sheetsapi.WriteOverUnder(data)
+						var editmsg tgbotapi.EditMessageTextConfig
+						editmsg.ChatID = callbackQuery.Message.Chat.ID
+						editmsg.MessageID = callbackQuery.Message.MessageID
 						editmsg.Text = "isVulnerable?"
 						editmsg.ReplyMarkup = contbridg.ChooseIsVulnerable()
 						bot.Send(editmsg)

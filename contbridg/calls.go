@@ -15,6 +15,7 @@ const (
 	ChooseBidLosers1Prefix   = "bidlosers1_"
 	ChooseBidLosers2Prefix   = "bidlosers2_"
 	ChooseWinStatusPrefix    = "winstatus_"
+	ChooseOverUnderPrefix    = "overunder_"
 	ChooseIsVulnerablePrefix = "vul_"
 )
 
@@ -74,6 +75,27 @@ func ChooseWinStatus() *tgbotapi.InlineKeyboardMarkup {
 			ikr = append(ikr, ikb)
 		}
 		inlineKeyboardMarkup.InlineKeyboard = append(inlineKeyboardMarkup.InlineKeyboard, ikr)
+	}
+	finalRow := tgbotapi.NewInlineKeyboardRow(
+		tgbotapi.NewInlineKeyboardButtonData("Cancel", "cancel"),
+	)
+	inlineKeyboardMarkup.InlineKeyboard = append(inlineKeyboardMarkup.InlineKeyboard, finalRow)
+	return &inlineKeyboardMarkup
+}
+
+func ChooseOverUnder() *tgbotapi.InlineKeyboardMarkup {
+	inlineKeyboardMarkup := tgbotapi.NewInlineKeyboardMarkup()
+
+	var inlineKeyboardRow = tgbotapi.NewInlineKeyboardRow()
+	for i := 0; i <= 7; i++ {
+		if i%2 == 0 {
+			inlineKeyboardRow = tgbotapi.NewInlineKeyboardRow()
+		}
+		inlineKeyboardRow = append(inlineKeyboardRow, tgbotapi.NewInlineKeyboardButtonData(
+			strconv.Itoa(i), ChooseOverUnderPrefix+strconv.Itoa(i)))
+		if i%2 == 1 {
+			inlineKeyboardMarkup.InlineKeyboard = append(inlineKeyboardMarkup.InlineKeyboard, inlineKeyboardRow)
+		}
 	}
 	finalRow := tgbotapi.NewInlineKeyboardRow(
 		tgbotapi.NewInlineKeyboardButtonData("Cancel", "cancel"),
