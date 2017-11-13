@@ -5,6 +5,10 @@ import (
 	"log"
 	"sawmillersbot/secret"
 	"time"
+
+	"strings"
+
+	"google.golang.org/api/sheets/v4"
 )
 
 var (
@@ -110,12 +114,82 @@ func GetQuoteOfTheDay() string {
 	return res
 }
 
-func GetHelp() string {
-	return `/dinnerduty - Who's on Dinner Duty today?
-	/dinnerdutytmr - Who's on Dinner Duty tomorrow?
-	/trashduty - Who's supposed to take out the trash this week?
-	/cleaningduty - Who's on what cleaning duty?
-	/nextcleaningdate - When's the next date for cleaning the house?
-	/flipcoin - 50% chance heads, 50% tails, or is it?
-	/qotd - Get quote of the day.`
+// Contract Bridge Functions
+
+func GetBridgePlayers() []string {
+	var res []string
+	readRange := "Bridge Scoring!J2:O2" // sheet and range
+	resp, err := srv.Spreadsheets.Values.Get(secret.SpreadsheetId, readRange).Do()
+	if err != nil {
+		log.Fatalf("Unable to retrieve data from sheet. %v", err)
+	}
+	if len(resp.Values) > 0 {
+		for _, row := range resp.Values {
+			for _, name := range row {
+				res = append(res, name.(string))
+			}
+		}
+	} else {
+		fmt.Print("No data found.")
+	}
+	return res
+}
+
+func GetCurrBridgeHistRow() string {
+	var num string
+	readRange := "Bridge Scoring!J1:J1" // sheet and range
+	resp, err := srv.Spreadsheets.Values.Get(secret.SpreadsheetId, readRange).Do()
+	if err != nil {
+		log.Fatalf("Unable to retrieve data from sheet. %v", err)
+	}
+	if len(resp.Values) > 0 {
+		for _, row := range resp.Values {
+			num = row[0].(string)
+		}
+	} else {
+		fmt.Print("No data found.")
+	}
+	return num
+}
+
+func WriteBid(data string) {
+	writeBridgeScoring(data, "A")
+}
+
+func WriteWinner1(data string) {
+	writeBridgeScoring(data, "B")
+}
+
+func WriteWinner2(data string) {
+	writeBridgeScoring(data, "C")
+}
+
+func WriteLoser1(data string) {
+	writeBridgeScoring(data, "D")
+}
+
+func WriteLoser2(data string) {
+	writeBridgeScoring(data, "E")
+}
+
+func WriteWinDoubleStatus(data string) {
+	writeBridgeScoring(data, "F")
+}
+
+func WriteVul(data string) {
+	writeBridgeScoring(data, "G")
+}
+
+func writeBridgeScoring(data string, col string) {
+	data = strings.Split(data, "_")[1]
+	cell := col + GetCurrBridgeHistRow()
+
+	rb := &sheets.ValueRange{}
+	rb.Values = [][]interface{}{{data}}
+
+	resp, err := srv.Spreadsheets.Values.Update(secret.SpreadsheetId, "Bridge Scoring!"+cell+":"+cell, rb).ValueInputOption("RAW").Do()
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("%#v\n", resp)
 }
