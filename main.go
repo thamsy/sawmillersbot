@@ -19,7 +19,7 @@ import (
 func main() {
 	sheetsapi.Init()
 
-	bot, err := tgbotapi.NewBotAPI(secret.ProtoBotToken)
+	bot, err := tgbotapi.NewBotAPI(secret.BotToken)
 	if err != nil {
 		log.Panic(err)
 	}

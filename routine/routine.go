@@ -18,17 +18,15 @@ func StartRoutine(b *tgbotapi.BotAPI) {
 }
 
 func trashDutyReminder() {
-	ticker := time.NewTicker(5 * time.Second)
-	var msg tgbotapi.MessageConfig
-	msg = tgbotapi.NewMessage(secret.DeveloperChatId, sheetsapi.GetTrashDuty())
+	ticker := time.NewTicker(time.Hour)
+	msg := tgbotapi.NewMessage(secret.ChatId, sheetsapi.GetTrashDuty())
 	quit := make(chan struct{})
 	go func() {
 		for {
 			select {
 			case <-ticker.C:
 				t := time.Now()
-				if t.Weekday() == time.Saturday && t.Hour() == 12 {
-					//if t.Weekday() == time.Tuesday && t.Hour() == 22 {
+				if t.Weekday() == time.Tuesday && t.Hour() == 22 {
 					bot.Send(msg)
 				}
 			case <-quit:
