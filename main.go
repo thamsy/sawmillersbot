@@ -11,19 +11,25 @@ import (
 
 	"strings"
 
+	"sawmillersbot/routine"
+
 	"gopkg.in/telegram-bot-api.v4"
 )
 
 func main() {
 	sheetsapi.Init()
 
-	bot, err := tgbotapi.NewBotAPI(secret.BotToken)
+	bot, err := tgbotapi.NewBotAPI(secret.ProtoBotToken)
 	if err != nil {
 		log.Panic(err)
 	}
 	bot.Debug = true
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
+	// Routine
+	routine.StartRoutine(bot)
+
+	// Updates
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
 
