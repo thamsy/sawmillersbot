@@ -48,6 +48,8 @@ func main() {
 				msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetCleaningDuty())
 			} else if command == "nextcleaningdate" {
 				msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.GetNextCleaningDate())
+			} else if command == "incrementschedule" {
+				msg = tgbotapi.NewMessage(update.Message.Chat.ID, sheetsapi.IncrementSchedule())
 			} else if command == "help" {
 				msg = tgbotapi.NewMessage(update.Message.Chat.ID, otherfunctions.GetHelp())
 			} else if command == "flipcoin" {

@@ -19,6 +19,7 @@ func GetHelp() string {
 	/trashduty - Who's supposed to take out the trash this week?
 	/cleaningduty - Who's on what cleaning duty?
 	/nextcleaningdate - When's the next date for cleaning the house?
+	/incrementschedule - Move schedule to next cycle
 	/flipcoin - 50% chance heads, 50% tails, or is it?
 	/inputcontbridgscore - Input Contract Bridge Score`
 }

@@ -8,6 +8,8 @@ import (
 
 	"strings"
 
+	"strconv"
+
 	"google.golang.org/api/sheets/v4"
 )
 
@@ -93,6 +95,38 @@ func GetNextCleaningDate() string {
 	} else {
 		fmt.Print("No data found.")
 	}
+	return res
+}
+
+func IncrementSchedule() string {
+	var res string
+	var num int
+	readRange := "House Cleaning!B2:B2"
+	resp, err := srv.Spreadsheets.Values.Get(secret.SpreadsheetId, readRange).Do()
+	if err != nil {
+		log.Fatalf("Unable to retrieve data from sheet. %v", err)
+	}
+
+	if len(resp.Values) > 0 {
+		for _, row := range resp.Values {
+			num, err = strconv.Atoi(fmt.Sprintf("%s", row[0]))
+		}
+	} else {
+		log.Fatal("No data found.")
+		return "No data found."
+	}
+
+	rb := &sheets.ValueRange{}
+	rb.Values = [][]interface{}{{num + 1}}
+
+	resp2, err := srv.Spreadsheets.Values.Update(secret.SpreadsheetId, "House Cleaning!B2:B2", rb).ValueInputOption("RAW").Do()
+	if err != nil {
+		log.Fatal(err)
+		return "Unable to write"
+	}
+	log.Printf("%#v\n", resp2)
+
+	res = "Successfully incremented. See here /cleaningduty"
 	return res
 }
 
