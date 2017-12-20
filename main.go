@@ -66,7 +66,7 @@ func main() {
 				msg = tgbotapi.NewMessage(update.Message.Chat.ID, "Select Winning Bid:")
 				msg.ReplyMarkup = contbridg.ChooseBid()
 			}
-		} else {
+		} else if update.CallbackQuery != nil {
 			callbackQuery := update.CallbackQuery
 			if callbackQuery.Message.ReplyToMessage.IsCommand() {
 				switch command := callbackQuery.Message.ReplyToMessage.Command(); command {
@@ -153,6 +153,9 @@ func main() {
 				}
 			}
 
+		} else {
+			log.Printf("Unsupported input")
+			continue
 		}
 
 		msg.ReplyToMessageID = update.Message.MessageID
